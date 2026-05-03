@@ -1,0 +1,24 @@
+{
+  // markdownlint-cli2 configuration
+  "config": {
+    // Line length: 120 chars, ignore code blocks and tables
+    "MD013": {
+      "line_length": 120,
+      "code_blocks": false,
+      "tables": false
+    },
+    // Allow inline HTML
+    "MD033": false,
+    // Allow emphasis used as heading
+    "MD036": false,
+    // First line doesn't need to be heading
+    "MD041": false
+  },
+  // Files to lint
+  "globs": ["docs/**/*.md", "*.md", ".claude/**/*.md", "skills/**/*.md"],
+  // Files to ignore
+  "ignores": [
+    "node_modules/**",
+    ".git/**"
+  ]
+}
