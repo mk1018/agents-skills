@@ -1,17 +1,17 @@
-# Claude Code Skills
+# Agent Skills
 
-Claude Code で使用する個人的なカスタムスキル集です。
+Claude Code と Codex で使用する個人的なカスタムスキル集です。
 
 ## スキル一覧
 
-| スキル | Claude Code コマンド | 説明 |
-| -------- | ---------- | ------ |
-| [commit-push](skills/commit-push/SKILL.md) | `/commit-push` | 新しいブランチを作成し、変更をコミットしてプッシュし、PRを作成する |
-| [review-and-push](skills/review-and-push/SKILL.md) | `/review-and-push` | 別エージェントでレビューし、問題なければcommit-pushする |
-| [codex-review](skills/codex-review/SKILL.md) | `/codex-review` | Codex CLIで現在の変更をレビューし、指摘事項があれば修正する |
-| [claude-code-review](skills/claude-code-review/SKILL.md) | `/claude-code-review` | Claude Codeのultrareviewで現在の変更をレビューし、指摘事項があれば修正する |
-| [create-issues](skills/create-issues/SKILL.md) | `/create-issues` | 指示されたタスクからGitHub Issuesを作成する |
-| [sentry-issues](skills/sentry-issues/SKILL.md) | `/sentry-issues` | Sentry CLIでプロジェクトのエラー情報を取得・分析する |
+| スキル | Claude Code | Codex | 説明 |
+| -------- | ---------- | ------ | ------ |
+| [commit-push](skills/commit-push/SKILL.md) | `/commit-push` | `$commit-push` | 新しいブランチを作成し、変更をコミットしてプッシュし、PRを作成する |
+| [review-and-push](skills/review-and-push/SKILL.md) | `/review-and-push` | `$review-and-push` | 別エージェントでレビューし、問題なければcommit-pushする |
+| [codex-review](skills/codex-review/SKILL.md) | `/codex-review` | `$codex-review` | Codex CLIで現在の変更をレビューし、指摘事項があれば修正する |
+| [claude-code-review](skills/claude-code-review/SKILL.md) | `/claude-code-review` | `$claude-code-review` | Claude Codeのultrareviewで現在の変更をレビューし、指摘事項があれば修正する |
+| [create-issues](skills/create-issues/SKILL.md) | `/create-issues` | `$create-issues` | 指示されたタスクからGitHub Issuesを作成する |
+| [sentry-issues](skills/sentry-issues/SKILL.md) | `/sentry-issues` | `$sentry-issues` | Sentry CLIでプロジェクトのエラー情報を取得・分析する |
 
 ## 他のリポジトリでの使い方
 
@@ -21,13 +21,13 @@ Claude Code で使用する個人的なカスタムスキル集です。
 
 ```bash
 # すべてのスキルをインストール
-npx skills add mk1018/claude-code-skills
+npx skills add mk1018/agents-skills
 
 # 特定のスキルのみインストール
-npx skills add mk1018/claude-code-skills --skill commit-push
+npx skills add mk1018/agents-skills --skill commit-push
 
 # グローバルにインストール（全リポジトリで使用可能）
-npx skills add mk1018/claude-code-skills -g
+npx skills add mk1018/agents-skills -g
 ```
 
 ### スキルの呼び出し
