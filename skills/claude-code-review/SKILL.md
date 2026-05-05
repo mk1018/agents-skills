@@ -1,28 +1,35 @@
 ---
 name: claude-code-review
-description: Claude Codeのultrareviewで現在の変更をレビューし、指摘事項があれば修正する
+description: 別のClaude Codeインスタンスで現在の変更をレビューし、指摘事項があれば修正する
 ---
 
 # Claude Code Review
 
-Claude Codeの`ultrareview`で現在の変更をレビューし、指摘事項があれば修正する。
+別のClaude Codeインスタンス（`claude -p`）で現在の変更をレビューし、指摘事項があれば修正する。`ultrareview`より高速。
 
 ## 実行方法
 
 1. `git status` と `git branch` で現在の状態を確認
-2. 状況に応じて `claude ultrareview` を実行:
-   - 未コミットの変更がある → 先に差分を確認し、レビュー対象をユーザーに確認してから実行
-   - PRブランチにいる → `claude ultrareview <base-branch>`
-   - PR番号またはPR URLを指定された → `claude ultrareview <PR番号またはPR URL>`
-   - 特に指定がない場合 → `claude ultrareview`
-3. Claude Codeのレビュー結果を確認
-4. 指摘事項がある場合は修正を実施
-5. 修正後、再度 `claude ultrareview` を実行して指摘が解消されたことを確認
-6. 結果をユーザーに報告
+2. レビュー対象の差分を決める:
+   - 未コミットの変更がある → `git diff` （必要なら `git diff --staged` も）
+   - PRブランチにいる → `git diff <base-branch>...HEAD`
+   - PR番号/URLを指定された → `gh pr diff <PR番号|URL>`
+3. その差分を `claude -p` に渡してレビューさせる:
+   ```bash
+   <差分取得コマンド> | claude -p "あなたはコードレビュアーです。以下のdiffをレビューし、バグ・セキュリティ問題・設計上の懸念・可読性の問題を指摘してください。問題がなければ「指摘なし」と答えてください。日本語で簡潔に。"
+   ```
+   - 差分が大きい場合は `--model claude-sonnet-4-6` などモデルを指定してもよい
+4. レビュー結果を確認
+5. 指摘事項がある場合は修正を実施
+6. 修正後、必要に応じて再度同じコマンドでレビューし指摘が解消されたことを確認
+7. 結果をユーザーに報告
 
 ## Notes
 
-- `claude ultrareview --timeout <minutes>` で待機時間を調整できる
-- `--json` は機械的に結果を確認したい場合のみ使用する
 - 指摘内容が的外れな場合は無視してよい
 - 修正が不要な場合は「指摘なし」または「対応不要」とユーザーに報告
+- 原則このskillでは `claude -p` でのレビューのみ行う。`ultrareview` は時間がかかるため通常は使わない
+- `ultrareview` を使うのは以下のように本当に必要なときのみ（実行前にユーザーに確認すること）:
+  - 大規模・広範囲・セキュリティ上クリティカルな変更で、複数エージェントによる重厚なレビューが必要
+  - ユーザーから明示的に `ultrareview` を指定された
+  - `claude -p` のレビューでは判断が難しい設計判断について second opinion が欲しい
