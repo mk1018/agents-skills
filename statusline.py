@@ -170,6 +170,6 @@ line1 = f' {DIM}│{R} '.join(parts)
 # Line 2: approximate cost (USD) — today's total (daily) and this session
 session_usd = (data.get('cost', {}).get('total_cost_usd')) or 0
 day_usd = daily_cost_usd()
-line2 = f'今日 ${day_usd:,.2f} {DIM}│{R} 今回 ${session_usd:,.2f}'
+line2 = f'Daily ${day_usd:,.2f} {DIM}│{R} Session ${session_usd:,.2f}'
 
 print(f'{line0}\n{line1}\n{line2}', end='')
